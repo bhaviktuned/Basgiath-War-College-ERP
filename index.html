@@ -1012,8 +1012,7 @@
   }
 
   /* ---------- backend connection ---------- */
-  const API_BASE = 'http://127.0.0.1:8000'; // change this if your API runs somewhere else
-  let authToken = null;
+  const API_BASE = 'https://basgiath-backend.onrender.com';  let authToken = null;
   let currentUser = null;
   let quadrantsData = {}; // { "Rider Quadrant": { core: [...], electives: [[a,b],[c,d]] }, ... }
   let registrationStatus = null; // set by loadRegistrationStatus() for the logged-in student
