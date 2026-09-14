@@ -1012,7 +1012,10 @@
   }
 
   /* ---------- backend connection ---------- */
-  const API_BASE = 'https://basgiath-war-college-erp-system.onrender.com';  
+  const isLocalDev = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+const API_BASE = isLocalDev
+  ? 'http://127.0.0.1:8000'
+  : 'https://basgiath-war-college-erp-system.onrender.com';  
   let authToken = null;
   let currentUser = null;
   let quadrantsData = {}; // { "Rider Quadrant": { core: [...], electives: [[a,b],[c,d]] }, ... }
