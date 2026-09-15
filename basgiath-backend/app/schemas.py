@@ -164,6 +164,56 @@ class ExamResultOut(BaseModel):
         from_attributes = True
 
 
+TIMETABLE_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+TIMETABLE_TYPES = ["theory", "practical", "training", "laboratory", "review"]
+
+
+class TimetableEntryOut(BaseModel):
+    id: int
+    quadrant: str
+    day: str
+    subject: str
+    start_time: str
+    end_time: str
+    type: str
+    room: Optional[str] = None
+    year: Optional[int] = None
+
+    class Config:
+        from_attributes = True
+
+
+class TimetableEntryCreate(BaseModel):
+    quadrant: str
+    day: str
+    subject: str = Field(min_length=1)
+    start_time: str = Field(min_length=1)
+    end_time: str = Field(min_length=1)
+    type: str = "theory"
+    room: Optional[str] = None
+    year: Optional[int] = None
+
+    @field_validator("quadrant")
+    @classmethod
+    def quadrant_valid(cls, v):
+        if v not in QUADRANT_NAMES:
+            raise ValueError(f"quadrant must be one of: {', '.join(QUADRANT_NAMES)}")
+        return v
+
+    @field_validator("day")
+    @classmethod
+    def day_valid(cls, v):
+        if v not in TIMETABLE_DAYS:
+            raise ValueError(f"day must be one of: {', '.join(TIMETABLE_DAYS)}")
+        return v
+
+    @field_validator("type")
+    @classmethod
+    def type_valid(cls, v):
+        if v not in TIMETABLE_TYPES:
+            raise ValueError(f"type must be one of: {', '.join(TIMETABLE_TYPES)}")
+        return v
+
 class CourseRegistrationStatus(BaseModel):
     registered: bool
     core: List[str]

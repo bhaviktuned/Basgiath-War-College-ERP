@@ -5,7 +5,7 @@ from . import models
 from .auth_utils import generate_erp_id, hash_password
 from .constants import ADMIN_ACCOUNTS
 from .database import Base, SessionLocal, engine
-from .routers import assignments, attendance, auth, calendar, course_registration, exam, meta, notices, profile
+from .routers import assignments, attendance, auth, calendar, course_registration, exam, meta, notices, profile, timetable
 
 Base.metadata.create_all(bind=engine)
 
@@ -55,6 +55,7 @@ app.include_router(calendar.router)
 app.include_router(notices.router)
 app.include_router(assignments.router)
 app.include_router(exam.router)
+app.include_router(timetable.router)
 
 
 @app.get("/api/health")
